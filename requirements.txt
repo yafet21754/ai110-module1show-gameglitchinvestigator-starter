@@ -1,3 +1,3 @@
-streamlit>=1.21.0
+streamlit>=1.28.0  # AppTest is used for UI regression tests
 altair<5
 pytest
