@@ -1,76 +1,29 @@
 # AI Interactions Log
 
-> **Stretch features only.** Only fill in the sections that apply to stretch features you attempted. If you did not attempt a stretch feature, leave its section blank or delete it. This file is not required for the core project.
+## Agent workflow
 
----
+**Tool:** ChatGPT/Codex. One assistant session was used; separate bug-specific chat sessions were not created. No second AI model was used.
 
-## Agent Workflow (SF8)
+**Actual user request:** "do this for me", followed by the full Game Glitch Investigator assignment; the user then supplied a screenshot identifying their fork.
 
-> Document your experience using an AI agent (e.g., Cursor Agent, Claude, Copilot) to make multi-step changes autonomously.
+**Work performed:** cloned the fork; read its source and starter tests; reproduced original function/UI failures; marked FIXME locations and made an investigation commit; refactored helpers and callbacks; generated unit and Streamlit AppTest regressions; reviewed diffs; ran tests and a server health check; completed an evidence-based README and reflection draft.
 
-**What task did you give the agent?**
+**Human review status:** the assistant presented two return-format options for review, but no selection was received. The code uses a string outcome plus a separate hint helper. The student must review the diff and supply their own accepted/rejected-suggestion explanation; no human testing or approval is fabricated.
 
-<!-- Describe the goal you asked the agent to accomplish -->
+## Test generation / edge cases
 
-**What did the agent do?**
+The supplied assignment requested: "Ask your AI coding assistant to generate a pytest case ... that specifically targets the bug you just fixed." The assistant expanded that requirement into the cases below; these are not invented quotations of separate student prompts.
 
-<!-- List the steps the agent took (files edited, commands run, etc.) -->
+| Edge case | Generated test / expectation | Result |
+|---|---|---|
+| Guess 60 or 40 against 50 | Correct numeric outcome and LOWER/HIGHER message | Passed |
+| Blank, whitespace, text, decimals, infinity, scientific notation | Reject invalid input without silently truncating | Passed |
+| Inclusive range endpoints | Accept valid endpoints; reject above maximum | Passed |
+| Wrong high guesses on even turns | Deduct five consistently | Passed |
+| First win / late win | Bonus starts at 100 and bottoms out at 10 | Passed |
+| All three difficulties at final allowed attempt | Correct final guess wins; incorrect final guess loses | Passed |
+| New Game after won/lost | Clear round state and allow play again | Passed |
+| Invalid submission in actual app | No change to score, attempts, secret, or history | Passed |
+| Difficulty change / ordinary rerun | Reset only on new round; preserve secret and prevent duplicate scoring on reruns | Passed |
 
-**What did you have to verify or fix manually?**
-
-<!-- Describe anything the agent got wrong or that required human review -->
-
----
-
-## Test Generation (SF7)
-
-> Document how you used AI to help generate or improve tests.
-
-| Edge Case | Prompt Used | AI-Suggested Test | Did It Pass? | Your Reasoning |
-|-----------|-------------|-------------------|--------------|----------------|
-| | | | | |
-| | | | | |
-| | | | | |
-
----
-
-## Linting & Style (SF9)
-
-> Document your use of AI for linting or code style improvements.
-
-**Prompt used:**
-
-```
-<!-- Paste the prompt you gave the AI -->
-```
-
-**Linting output before:**
-
-```
-<!-- Paste relevant linter warnings/errors -->
-```
-
-**Changes applied:**
-
-<!-- Describe what you changed based on the AI's suggestions -->
-
----
-
-## Model Comparison (SF11)
-
-> Compare two AI models on the same task.
-
-**Task given to both models:**
-
-<!-- Describe what you asked each model to do -->
-
-| | Model A | Model B |
-|-|---------|---------|
-| **Model name** | | |
-| **Response summary** | | |
-| **More Pythonic?** | | |
-| **Clearer explanation?** | | |
-
-**Which did you prefer and why?**
-
-<!-- Your conclusion -->
+Full output is in `test_results.txt` and README.md. No formal linting or model-comparison stretch challenge is claimed.
